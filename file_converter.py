@@ -12,6 +12,10 @@ def main():
         print("디렉토리를 다시 지정해 주세요")
         exit(0)
 
-    # output 저장 폴더 확인
+    # output 저장 폴더 확인 및 생성
     if os.path.isdir(output_dir) == 0:
         os.mkdir(output_dir)
+
+    files = os.listdir(input_dir)
+
+    #test
