@@ -20,6 +20,19 @@ def csv2excel(input_dir, output_dir, files):
             if file.split('.')[1] == 'csv':
                 print(" - " + file)
                 # 파일 형식 지정
-                f = codecs.open(input_dir + file, 'r', encoding='utf8')
-                # CSV 데이터 정제
-                print(f.readline().replace('"', "").replace("\r\n", "").split(","))
+                try:
+                    # 변환할 CSV 파일 open
+                    f = codecs.open(input_dir + file, 'r', encoding='utf8')
+
+                    # 저장할 파일 생성
+                    xlsx = openpyxl.Workbook()
+                    save = xlsx.active
+
+                    # CSV 데이터 정제
+                    for line in f.readlines():
+                        save.append(line.replace('"', "").replace("\r\n", "").split(","))
+
+                    # 데이터 저장
+                    xlsx.save(output_dir + file.split('.')[0] + ".xlsx")
+                except IOError:
+                    pass
